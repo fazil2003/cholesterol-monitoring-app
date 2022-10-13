@@ -21,11 +21,11 @@ import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import java.util.Objects;
 
-public class LoginActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     ImageView imageView;
     TextView textViewHeading;
-    EditText editTextUsername, editTextPassword;
+    EditText editTextUsername, editTextEmail, editTextPhone, editTextPassword;
     Button buttonLogin, buttonSignup;
     ProgressBar progressBar;
 
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signup);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         Objects.requireNonNull(this.getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -48,6 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         textViewHeading = findViewById(R.id.textview_heading);
         editTextUsername = findViewById(R.id.edittext_username);
         editTextPassword = findViewById(R.id.edittext_password);
+        editTextEmail = findViewById(R.id.edittext_email);
+        editTextPhone = findViewById(R.id.edittext_phone);
         progressBar = findViewById(R.id.progress_bar);
         buttonLogin = findViewById(R.id.button_login);
         buttonSignup = findViewById(R.id.button_signup);
@@ -65,11 +67,13 @@ public class LoginActivity extends AppCompatActivity {
             imageView.setBackgroundResource(R.drawable.image_patient);
         }
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        buttonSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = editTextUsername.getText().toString();
                 String password = editTextPassword.getText().toString();
+                String email = editTextEmail.getText().toString();
+                String phone = editTextPhone.getText().toString();
 
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(new Runnable() {
@@ -77,31 +81,35 @@ public class LoginActivity extends AppCompatActivity {
                     public void run() {
                         //Starting Write and Read data with URL
                         //Creating array for parameters
-                        String[] field = new String[3];
+                        String[] field = new String[5];
                         field[0] = "username";
-                        field[1] = "password";
-                        field[2] = "login_type";
+                        field[1] = "email";
+                        field[2] = "phone";
+                        field[3] = "password";
+                        field[4] = "login_type";
                         //Creating array for data
-                        String[] data = new String[3];
+                        String[] data = new String[5];
                         data[0] = username;
-                        data[1] = password;
-                        data[2] = profile_id;
+                        data[1] = email;
+                        data[2] = phone;
+                        data[3] = password;
+                        data[4] = profile_id;
 
-                        PutData putData = new PutData(getResources().getString(R.string.website_address) + "login.php", "POST", field, data);
+                        PutData putData = new PutData(getResources().getString(R.string.website_address) + "signup.php", "POST", field, data);
                         if (putData.startPut()) {
                             if (putData.onComplete()) {
                                 progressBar.setVisibility(View.GONE);
                                 String result = putData.getResult();
 
                                 if(result.contains("success")){
-                                    Toast.makeText(LoginActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(LoginActivity.this, DisplayActivity.class);
+                                    Toast.makeText(SignupActivity.this, "Registered successfully.", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(SignupActivity.this, DisplayActivity.class);
                                     i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(i);
                                     finish();
                                 }
                                 else{
-                                    Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignupActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
                                 }
                                 //End ProgressBar (Set visibility to GONE)
                             }
@@ -113,10 +121,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        buttonSignup.setOnClickListener(new View.OnClickListener() {
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, SignupActivity.class);
+                Intent i = new Intent(SignupActivity.this, LoginActivity.class);
                 i.putExtra("profile_id", profile_id);
                 i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);

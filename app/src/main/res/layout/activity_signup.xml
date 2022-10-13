@@ -36,7 +36,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
                 android:textSize="32sp"
-                android:text="Login" />
+                android:text="Register" />
 
             <EditText
                 android:id="@+id/edittext_username"
@@ -50,6 +50,31 @@
                 android:textSize="20sp"
                 android:padding="15dp"/>
 
+            <EditText
+                android:id="@+id/edittext_email"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Email"
+                android:inputType="text|textEmailAddress"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_phone"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Phone"
+                android:inputType="number"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
 
             <EditText
                 android:id="@+id/edittext_password"
@@ -72,7 +97,7 @@
                 android:indeterminateTint="@color/white" />
 
             <Button
-                android:id="@+id/button_login"
+                android:id="@+id/button_signup"
                 android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,12 +106,12 @@
                 android:textAllCaps="false"
                 android:textColor="@color/dodgerblue"
                 android:textStyle="bold"
-                android:text="Login"
+                android:text="Register"
                 android:textSize="16sp"
                 android:padding="7.5dp"/>
 
             <Button
-                android:id="@+id/button_signup"
+                android:id="@+id/button_login"
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,7 +120,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/deepskyblue"
                 android:textStyle="bold"
-                android:text="Register"
+                android:text="Login"
                 android:textSize="16sp"
                 android:padding="7.5dp"/>
 
