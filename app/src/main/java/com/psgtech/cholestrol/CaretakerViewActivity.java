@@ -19,14 +19,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.psgtech.cholestrol.doctor_view.OpenPatientFragment;
+import com.psgtech.cholestrol.caretaker_view.OpenPatientFragment;
 import com.psgtech.cholestrol.patient_view.OpenDoctorFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class DoctorViewActivity extends AppCompatActivity {
+public class CaretakerViewActivity extends AppCompatActivity {
 
     Fragment selectedFragment = new OpenPatientFragment();
 
@@ -34,7 +34,7 @@ public class DoctorViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doctor_view);
+        setContentView(R.layout.activity_caretaker_view);
 
         // REMOVE DARK MODE
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

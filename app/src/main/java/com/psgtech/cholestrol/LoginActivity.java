@@ -93,15 +93,26 @@ public class LoginActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                                 String result = putData.getResult();
 
-                                if(result.contains("success")){
+                                if(result.contains("failed")){
+                                    Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
                                     Toast.makeText(LoginActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(LoginActivity.this, DisplayActivity.class);
+                                    Intent i = null;
+                                    if(profile_id.equals("1")){
+                                        i = new Intent(LoginActivity.this, DoctorViewActivity.class);
+                                    }
+                                    else if(profile_id.equals("2")){
+                                        i = new Intent(LoginActivity.this, DoctorViewActivity.class);
+                                    }
+                                    else if(profile_id.equals("3")){
+                                        i = new Intent(LoginActivity.this, PatientViewActivity.class);
+                                    }
+                                    assert i != null;
+                                    i.putExtra("cookie_id", result);
                                     i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(i);
                                     finish();
-                                }
-                                else{
-                                    Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
                                 }
                                 //End ProgressBar (Set visibility to GONE)
                             }

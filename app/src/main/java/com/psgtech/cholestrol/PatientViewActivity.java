@@ -19,22 +19,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.psgtech.cholestrol.doctor_view.OpenPatientFragment;
 import com.psgtech.cholestrol.patient_view.OpenDoctorFragment;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class DoctorViewActivity extends AppCompatActivity {
+public class PatientViewActivity extends AppCompatActivity {
 
-    Fragment selectedFragment = new OpenPatientFragment();
+    Fragment selectedFragment = new OpenDoctorFragment();
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_doctor_view);
+        setContentView(R.layout.activity_patient_view);
 
         // REMOVE DARK MODE
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -47,7 +46,7 @@ public class DoctorViewActivity extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
         // ACTION BAR
 
-        getSupportFragmentManager().beginTransaction()
+         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, selectedFragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
