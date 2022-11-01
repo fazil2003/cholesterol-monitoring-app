@@ -89,6 +89,132 @@
                 android:textSize="20sp"
                 android:padding="15dp"/>
 
+            <EditText
+                android:id="@+id/edittext_age"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Age"
+                android:inputType="text|number"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_address"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Address"
+                android:inputType="text|textMultiLine|textCapSentences"
+                android:gravity="top"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="0dp" />
+
+            <EditText
+                android:id="@+id/edittext_opnumber"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="OP Number"
+                android:inputType="text|number"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_ipnumber"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="IP Number"
+                android:inputType="text|number"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_race"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Race"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_height"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Height"
+                android:inputType="text|number"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_weight"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Weight"
+                android:inputType="text|number"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_history"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Medical History"
+                android:inputType="text|textMultiLine|textCapSentences"
+                android:gravity="top"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_profession"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Profession"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
             <ProgressBar
                 android:id="@+id/progress_bar"
                 android:visibility="gone"

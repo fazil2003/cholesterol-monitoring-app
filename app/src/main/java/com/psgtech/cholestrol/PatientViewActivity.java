@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.psgtech.cholestrol.patient_view.OpenDoctorFragment;
+import com.psgtech.cholestrol.patient_view.PatientFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +28,7 @@ import java.util.Objects;
 
 public class PatientViewActivity extends AppCompatActivity {
 
-    Fragment selectedFragment = new OpenDoctorFragment();
+    Fragment selectedFragment = new PatientFragment();
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override

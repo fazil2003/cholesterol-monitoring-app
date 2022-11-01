@@ -182,6 +182,7 @@ public class OpenPatientFragment extends Fragment {
 
                 // Set ID of Question
                 data.setId(object.getString("id"));
+                data.setType(object.getString("type"));
                 data.setName(object.getString("name"));
                 data.setEmail(object.getString("email"));
                 data.setPhone(object.getString("phone"));

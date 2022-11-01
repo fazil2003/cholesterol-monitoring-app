@@ -1,0 +1,119 @@
+<html>
+
+    <body>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+        <div class = "header">
+            Cholesterol Report
+        </div>
+
+        <div class="container">
+
+            <table>
+
+                <tr>
+                    <td>Name: </td>
+                    <td><p class="o_name">Virat Kohli</p></td>
+                </tr>
+
+                <tr>
+                    <td>Age: </td>
+                    <td><p class="o_age">Virat Kohli</p></td>
+                </tr>
+
+                <tr>
+                    <td>Gender: </td>
+                    <td><p class="o_gender">Virat Kohli</p></td>
+                </tr>
+
+            </table>
+
+            <canvas id="myChart" style="width:100%;"></canvas>
+
+        </div>
+
+    </body>
+
+    <script>
+    var barColors = "dodgerblue";
+
+    new Chart("myChart", {
+      type: "bar",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        legend: {display: false},
+        title: {
+          display: true,
+          text: "Cholesterol Level"
+        }
+      }
+    });
+    </script>
+
+    <script>
+        function moveEverything(){
+            /* Name */
+            document.getElementsByClassName("o_name")[0].innerHTML = document.getElementsByClassName("d_name")[0].innerHTML;
+            document.getElementsByClassName("d_name")[0].innerHTML = "";
+
+            /* Age */
+            document.getElementsByClassName("o_age")[0].innerHTML = document.getElementsByClassName("d_age")[0].innerHTML;
+            document.getElementsByClassName("d_age")[0].innerHTML = "";
+
+            /* Gender */
+            document.getElementsByClassName("o_gender")[0].innerHTML = document.getElementsByClassName("d_gender")[0].innerHTML;
+            document.getElementsByClassName("d_gender")[0].innerHTML = "";
+        }
+
+        moveEverything();
+    </script>
+
+    <style>
+        .header{
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold
+        }
+
+        .d_table{
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .d_table, .d_table th, .d_table td {
+          border:1px solid black;
+        }
+
+        .d_table th{
+            background: dodgerblue;
+            color: white;
+        }
+
+        .d_table td{
+            padding: 5px;
+        }
+
+        .color-red{
+            color: red;
+            font-weight: bold;
+        }
+
+        .color-orange{
+            color: orange;
+            font-weight: bold;
+        }
+
+        .color-green{
+            color: seagreen;
+            font-weight: bold;
+        }
+    </style>
+
+</html>

@@ -45,7 +45,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class OpenDoctorFragment extends Fragment {
+public class OpenCaretakerFragment extends Fragment {
 
     //Initialize Variable
     NestedScrollView nestedScrollView;
@@ -62,7 +62,7 @@ public class OpenDoctorFragment extends Fragment {
 
     int start = 0, limit = 10;
     String cookie_id = "1";
-    int current_user = 3, to_user = 1;
+    int current_user = 3, to_user = 2;
 
     Button buttonSendEmail;
     TextView textViewMaximumProjects, textViewNoInternetConnection;
@@ -140,7 +140,7 @@ public class OpenDoctorFragment extends Fragment {
 //        }
 
         // Initialize Adapter
-        adapter = new MainAdapter(OpenDoctorFragment.this, dataArrayList);
+        adapter = new MainAdapter(OpenCaretakerFragment.this, dataArrayList);
 
         // Set Layout Manager
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity().getApplicationContext()));
@@ -248,7 +248,7 @@ public class OpenDoctorFragment extends Fragment {
 
 
             // Initialize Adapter
-            adapter = new MainAdapter(OpenDoctorFragment.this, dataArrayList);
+            adapter = new MainAdapter(OpenCaretakerFragment.this, dataArrayList);
 
             // Set adapter
             recyclerView.setAdapter(adapter);

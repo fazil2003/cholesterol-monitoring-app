@@ -42,6 +42,13 @@
                 android:text="ID: 1234" />
 
             <TextView
+                android:id="@+id/textview_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="TYPE: 1" />
+
+            <TextView
                 android:id="@+id/textview_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,7 +119,6 @@
 
 
         </LinearLayout>
-
 
     </LinearLayout>
 

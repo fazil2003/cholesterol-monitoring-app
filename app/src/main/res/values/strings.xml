@@ -2,4 +2,12 @@
     <string name="app_name">Cholestrol Monitoring</string>
     <string name="website_address">http://192.168.177.172/cholestrol/</string>
     <string name="string_no_internet_connection">No Internet Connection. Please kindly check your internet connection and try again.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="string_spinner_gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
 </resources>

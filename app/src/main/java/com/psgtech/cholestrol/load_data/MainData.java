@@ -2,6 +2,16 @@ package com.psgtech.cholestrol.load_data;
 
 public class MainData {
     private String id;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     private String name;
     private String email;
     private String phone;

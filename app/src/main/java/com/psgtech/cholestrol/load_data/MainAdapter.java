@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.psgtech.cholestrol.R;
+import com.psgtech.cholestrol.ViewDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
         // Set ID on text view
         holder.textViewId.setText(data.getId());
+        holder.textViewType.setText(data.getType());
         holder.textViewName.setText(data.getName());
         holder.textViewEmail.setText(data.getEmail());
         holder.textViewPhone.setText("+91 " + data.getPhone());
@@ -54,17 +56,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         holder.answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Intent i = new Intent(activity.requireActivity().getBaseContext(),
-//                        AnswerActivity.class);
-//                //PACK DATA
-//                i.putExtra("question_id", data.getQuestion_id());
-//                activity.requireActivity().startActivity(i);
-
-
+                Intent i = new Intent(activity.requireActivity(), ViewDetailsActivity.class);
+                assert i != null;
+                i.putExtra("user_type", data.getType());
+                i.putExtra("user_id", data.getId());
+                i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                activity.startActivity(i);
             }
         });
 
+        holder.shareButton.setVisibility(View.GONE);
         holder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,13 +93,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         // Initialize Variable
         ImageView imageView;
-        TextView textViewId, textViewName, textViewEmail, textViewPhone, textViewDate;
+        TextView textViewId, textViewType, textViewName, textViewEmail, textViewPhone, textViewDate;
         Button answerButton, shareButton;
 
         public ViewHolder(@NonNull @org.jetbrains.annotations.NotNull View itemView) {
             super(itemView);
             //Assign variables
             textViewId = itemView.findViewById(R.id.textview_id);
+            textViewType = itemView.findViewById(R.id.textview_type);
             textViewName = itemView.findViewById(R.id.textview_name);
             textViewEmail = itemView.findViewById(R.id.textview_email);
             textViewPhone = itemView.findViewById(R.id.textview_phone);
