@@ -229,7 +229,7 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cardview_generate_report"
+                    android:id="@+id/cardview_doctor_suggestions"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
@@ -258,7 +258,7 @@
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="@color/dodgerblue"
-                            android:text="Generate" />
+                            android:text="Doctor" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -266,7 +266,7 @@
                             android:gravity="center"
                             android:textSize="16sp"
                             android:textColor="@color/black"
-                            android:text="report" />
+                            android:text="suggestions" />
 
                     </LinearLayout>
 

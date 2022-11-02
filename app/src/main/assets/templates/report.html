@@ -27,6 +27,26 @@
                     <td><p class="o_gender">Virat Kohli</p></td>
                 </tr>
 
+                <tr>
+                    <td>Doctor: </td>
+                    <td><p class="o_doctor">Doctor</p></td>
+                </tr>
+
+                <tr>
+                    <td>Date: </td>
+                    <td><p class="o_message_date">Doctor</p></td>
+                </tr>
+
+                <tr>
+                    <td>Query: </td>
+                    <td><p class="o_message_query">Doctor</p></td>
+                </tr>
+
+                <tr>
+                    <td>Response: </td>
+                    <td><p class="o_message_response">Doctor</p></td>
+                </tr>
+
             </table>
 
             <canvas id="myChart" style="width:100%;"></canvas>
@@ -70,6 +90,22 @@
             /* Gender */
             document.getElementsByClassName("o_gender")[0].innerHTML = document.getElementsByClassName("d_gender")[0].innerHTML;
             document.getElementsByClassName("d_gender")[0].innerHTML = "";
+
+            /* Doctor */
+            document.getElementsByClassName("o_doctor")[0].innerHTML = document.getElementsByClassName("d_doctor")[0].innerHTML;
+            document.getElementsByClassName("d_doctor")[0].innerHTML = "";
+
+            /* Message Date */
+            document.getElementsByClassName("o_message_date")[0].innerHTML = document.getElementsByClassName("d_message_date")[0].innerHTML;
+            document.getElementsByClassName("d_message_date")[0].innerHTML = "";
+
+            /* Message Query */
+            document.getElementsByClassName("o_message_query")[0].innerHTML = document.getElementsByClassName("d_message_query")[0].innerHTML;
+            document.getElementsByClassName("d_message_query")[0].innerHTML = "";
+
+            /* Message Response */
+            document.getElementsByClassName("o_message_response")[0].innerHTML = document.getElementsByClassName("d_message_response")[0].innerHTML;
+            document.getElementsByClassName("d_message_response")[0].innerHTML = "";
         }
 
         moveEverything();

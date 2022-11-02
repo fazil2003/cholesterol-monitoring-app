@@ -200,6 +200,10 @@ public class ReportActivity extends AppCompatActivity {
                             htmlCode = new StringBuilder("<p class='d_name'>" + arr[1] + "</p>");
                             htmlCode.append("<p class='d_age'>" + arr[4] + "</p>");
                             htmlCode.append("<p class='d_gender'>" + arr[5] + "</p>");
+                            htmlCode.append("<p class='d_doctor'>" + arr[15] + "</p>");
+                            htmlCode.append("<p class='d_message_date'>" + arr[16] + "</p>");
+                            htmlCode.append("<p class='d_message_query'>" + arr[17] + "</p>");
+                            htmlCode.append("<p class='d_message_response'>" + arr[18] + "</p>");
 
                             StringBuilder tableCode = new StringBuilder("");
                             StringBuilder chartCodeX = new StringBuilder("<script>var xValues = [");
@@ -209,7 +213,7 @@ public class ReportActivity extends AppCompatActivity {
                             tableCode.append("<tr><th>Date and Time</th><th>Level</th><th>Change</th></tr>");
                             int prevLevel = 0;
                             int diffLevel = 0;
-                            for(int i = 15; i < arr.length; i+=2){
+                            for(int i = 19; i < arr.length; i+=2){
                                 tableCode.append("<tr><td>" + arr[i] + "</td>");
                                 String[] xDate = arr[i].split(" ");
                                 String[] xDate1 = xDate[0].split("-");

@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
@@ -98,16 +102,25 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else{
                                     Toast.makeText(LoginActivity.this, "Login successfully.", Toast.LENGTH_SHORT).show();
+
+                                    SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+                                    sp = getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor sharedPreferencesEditor = sp.edit();
+
                                     Intent i = null;
                                     if(profile_id.equals("1")){
                                         i = new Intent(LoginActivity.this, DoctorViewActivity.class);
+
                                     }
                                     else if(profile_id.equals("2")){
-                                        i = new Intent(LoginActivity.this, DoctorViewActivity.class);
+                                        i = new Intent(LoginActivity.this, CaretakerViewActivity.class);
                                     }
                                     else if(profile_id.equals("3")){
                                         i = new Intent(LoginActivity.this, PatientViewActivity.class);
                                     }
+                                    sharedPreferencesEditor.putString("from_user", profile_id);
+                                    sharedPreferencesEditor.commit();
+
                                     assert i != null;
                                     i.putExtra("cookie_id", result);
                                     i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);

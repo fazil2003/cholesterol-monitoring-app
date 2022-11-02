@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.psgtech.cholestrol.AddDataActivity;
+import com.psgtech.cholestrol.DoctorSuggestionFragment;
 import com.psgtech.cholestrol.DoctorViewActivity;
 import com.psgtech.cholestrol.HomeActivity;
 import com.psgtech.cholestrol.LoginActivity;
@@ -22,7 +23,7 @@ import com.psgtech.cholestrol.report.ReportActivity;
 public class PatientFragment extends Fragment {
 
     CardView cardViewCholestrolDetails, cardViewProfileDetails, cardViewDoctorDetails, cardViewCaretakerDetails,
-    cardViewGenerateReport;
+    cardViewDoctorSuggestions;
     String cookie_id;
 
     @Override
@@ -36,7 +37,7 @@ public class PatientFragment extends Fragment {
         cardViewProfileDetails = view.findViewById(R.id.cardview_profile_details);
         cardViewDoctorDetails = view.findViewById(R.id.cardview_assigned_doctor);
         cardViewCaretakerDetails = view.findViewById(R.id.cardview_assigned_caretaker);
-        cardViewGenerateReport = view.findViewById(R.id.cardview_generate_report);
+        cardViewDoctorSuggestions = view.findViewById(R.id.cardview_doctor_suggestions);
 
         cardViewCholestrolDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,16 +86,15 @@ public class PatientFragment extends Fragment {
             }
         });
 
-        cardViewGenerateReport.setOnClickListener(new View.OnClickListener() {
+        cardViewDoctorSuggestions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(requireActivity(), ReportActivity.class);
-                assert i != null;
-                i.putExtra("user_type", "3");
-                i.putExtra("user_id", cookie_id);
-                i.putExtra("report_type", "1");
-                i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                Fragment selectedFragment = new DoctorSuggestionFragment();
+                Bundle arguments = new Bundle();
+                arguments.putString("cookie_id", cookie_id);
+                selectedFragment.setArguments(arguments);
+                ((PatientViewActivity) requireActivity()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment).addToBackStack(null).commit();
             }
         });
 

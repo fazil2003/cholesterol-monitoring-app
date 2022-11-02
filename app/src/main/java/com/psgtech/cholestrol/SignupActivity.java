@@ -21,20 +21,28 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.psgtech.cholestrol.report.ReportActivity;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class SignupActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ImageView imageView;
     TextView textViewHeading;
     EditText editTextUsername, editTextEmail, editTextPhone, editTextPassword;
-    EditText editTextAge, editTextGender, editTextAddress, editTextHeight, editTextWeight, editTextBMI;
+    EditText editTextAge, editTextHospital, editTextAddress, editTextHeight, editTextWeight, editTextDoctorID;
     EditText editTextOPNumber, editTextIPNumber, editTextRace, editTextHistory, editTextProfession;
     Spinner spinnerGender;
     Button buttonLogin, buttonSignup;
     ProgressBar progressBar;
+
+    Spinner spinnerHospital, spinnerDoctor, spinnerPatient;
 
     String profile_id;
 
@@ -62,6 +70,9 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         editTextAge = findViewById(R.id.edittext_age);
         editTextAddress = findViewById(R.id.edittext_address);
 
+        editTextHospital = findViewById(R.id.edittext_hospital);
+        editTextDoctorID = findViewById(R.id.edittext_doctor_id);
+
         editTextOPNumber = findViewById(R.id.edittext_opnumber);
         editTextIPNumber = findViewById(R.id.edittext_ipnumber);
         editTextRace = findViewById(R.id.edittext_race);
@@ -76,15 +87,15 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         buttonSignup = findViewById(R.id.button_signup);
 
         if (profile_id.equals("1")){
-            textViewHeading.setText("Doctor's Login");
+            textViewHeading.setText("Doctor's Registration");
             imageView.setBackgroundResource(R.drawable.image_doctor);
         }
         else if (profile_id.equals("2")){
-            textViewHeading.setText("Caretaker's Login");
+            textViewHeading.setText("Caretaker's Registration");
             imageView.setBackgroundResource(R.drawable.image_dietitian);
         }
         else{
-            textViewHeading.setText("Patient's Login");
+            textViewHeading.setText("Patient's Registration");
             imageView.setBackgroundResource(R.drawable.image_patient);
         }
 
@@ -98,6 +109,11 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
             editTextProfession.setVisibility(View.GONE);
         }
 
+        if(profile_id.equals("2") || profile_id.equals("3")){
+            editTextHospital.setVisibility(View.GONE);
+            editTextDoctorID.setVisibility(View.GONE);
+        }
+
         Resources res = getResources();
         String[] category = res.getStringArray(R.array.string_spinner_gender);
         Spinner mySpinner = findViewById(R.id.spinner_gender);
@@ -105,6 +121,64 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
         ArrayAdapter<CharSequence> aa = new ArrayAdapter<>(SignupActivity.this, R.layout.spinner_item, category);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(aa);
+
+        // Spinner Doctor
+        spinnerDoctor = findViewById(R.id.spinner_doctor);
+        spinnerDoctor.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+
+        // Spinner Patient
+        spinnerPatient = findViewById(R.id.spinner_patient);
+        spinnerPatient.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+
+        // Spinner Hospital
+        spinnerHospital = findViewById(R.id.spinner_hospital);
+        spinnerHospital.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Get Doctors
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        String[] field = new String[1];
+                        field[0] = "hospital";
+                        String[] data = new String[1];
+                        data[0] = spinnerHospital.getSelectedItem().toString();
+                        PutData putData = new PutData(getResources().getString(R.string.website_address) + "get_doctors.php", "POST", field, data);
+                        if (putData.startPut()) {
+                            if (putData.onComplete()) {
+                                String result = putData.getResult();
+                                if(result.contains("failed")){
+                                    Toast.makeText(SignupActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    String[] category = result.split(":::");
+                                    ArrayAdapter<CharSequence> aa = new ArrayAdapter<>(SignupActivity.this, R.layout.spinner_item, category);
+                                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    spinnerDoctor.setAdapter(aa);
+                                }
+                                //End ProgressBar (Set visibility to GONE)
+                            }
+                        }
+                        //End Write and Read data with URL
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        if(profile_id.equals("3")){
+            spinnerHospital.setVisibility(View.VISIBLE);
+            spinnerDoctor.setVisibility(View.VISIBLE);
+        }
+
+        if(profile_id.equals("2")){
+            spinnerPatient.setVisibility(View.VISIBLE);
+        }
 
 
         buttonSignup.setOnClickListener(new View.OnClickListener() {
@@ -118,30 +192,68 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                 String age = editTextAge.getText().toString();
                 String address = editTextAddress.getText().toString();
 
-                String OPNumber = editTextOPNumber.getText().toString();
-                String IPNumber = editTextIPNumber.getText().toString();
-                String race = editTextRace.getText().toString();
+                String hospital = "";
+                String doctorID = "";
+                if(profile_id.equals("1")){
+                    hospital = editTextHospital.getText().toString();
+                    doctorID = editTextDoctorID.getText().toString();
+                }
 
-                String height = editTextHeight.getText().toString();
-                String weight = editTextWeight.getText().toString();
+                String OPNumber = "";
+                String IPNumber = "";
+                String race = "";
+                String height = "1";
+                String weight = "1";
+                String history = "";
+                String profession = "";
+                String hospitalPatient = "";
+                String doctorPatient = "";
+                String patientCareTaker = "";
+                if(profile_id.equals("3")) {
+                    hospitalPatient = spinnerHospital.getSelectedItem().toString();
+                    doctorPatient = spinnerDoctor.getSelectedItem().toString();
+                    OPNumber = editTextOPNumber.getText().toString();
+                    IPNumber = editTextIPNumber.getText().toString();
+                    race = editTextRace.getText().toString();
+                    height = editTextHeight.getText().toString();
+                    weight = editTextWeight.getText().toString();
+                    history = editTextHistory.getText().toString();
+                    profession = editTextProfession.getText().toString();
+                }
+
+                if(profile_id.equals("2")){
+                    patientCareTaker =  spinnerPatient.getSelectedItem().toString();
+                }
+
                 Double h = Double.parseDouble(height);
                 Double w = Double.parseDouble(weight);
+                h = h / 100;
                 Double b = w / (h * h);
                 String bmi = String.valueOf(b);
-                String history = editTextHistory.getText().toString();
-                String profession = editTextProfession.getText().toString();
 
                 String text = mySpinner.getSelectedItem().toString();
                 String gender = String.valueOf(text);
 
                 Handler handler = new Handler(Looper.getMainLooper());
+                String finalOPNumber = OPNumber;
+                String finalIPNumber = IPNumber;
+                String finalRace = race;
+                String finalHeight = height;
+                String finalWeight = weight;
+                String finalHistory = history;
+                String finalProfession = profession;
+                String finalHospital = hospital;
+                String finalDoctorID = doctorID;
+                String finalHospitalPatient = hospitalPatient;
+                String finalDoctorPatient = doctorPatient;
+                String finalPatientCareTaker = patientCareTaker;
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         //Starting Write and Read data with URL
 
                         //Creating array for parameters
-                        String[] field = new String[16];
+                        String[] field = new String[21];
                         field[0] = "username";
                         field[1] = "email";
                         field[2] = "phone";
@@ -160,8 +272,15 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                         field[14] = "history";
                         field[15] = "profession";
 
+                        field[16] = "hospital";
+                        field[17] = "doctor_id";
+
+                        field[18] = "hospital_patient";
+                        field[19] = "doctor_patient";
+                        field[20] = "patient_caretaker";
+
                         //Creating array for data
-                        String[] data = new String[16];
+                        String[] data = new String[21];
                         data[0] = username;
                         data[1] = email;
                         data[2] = phone;
@@ -171,14 +290,21 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                         data[6] = gender;
                         data[7] = address;
 
-                        data[8] = OPNumber;
-                        data[9] = IPNumber;
-                        data[10] = race;
-                        data[11] = height;
-                        data[12] = weight;
+                        data[8] = finalOPNumber;
+                        data[9] = finalIPNumber;
+                        data[10] = finalRace;
+                        data[11] = finalHeight;
+                        data[12] = finalWeight;
                         data[13] = bmi;
-                        data[14] = history;
-                        data[15] = profession;
+                        data[14] = finalHistory;
+                        data[15] = finalProfession;
+
+                        data[16] = finalHospital;
+                        data[17] = finalDoctorID;
+
+                        data[18] = finalHospitalPatient;
+                        data[19] = finalDoctorPatient;
+                        data[20] = finalPatientCareTaker;
 
                         PutData putData = new PutData(getResources().getString(R.string.website_address) + "signup.php", "POST", field, data);
                         if (putData.startPut()) {
@@ -216,6 +342,70 @@ public class SignupActivity extends AppCompatActivity implements AdapterView.OnI
                 finish();
             }
         });
+
+        // Get Hospitals
+        if(profile_id.equals("3")){
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    String[] field = new String[1];
+                    field[0] = "user_type";
+                    String[] data = new String[1];
+                    data[0] = "3";
+                    PutData putData = new PutData(getResources().getString(R.string.website_address) + "get_hospitals.php", "POST", field, data);
+                    if (putData.startPut()) {
+                        if (putData.onComplete()) {
+                            String result = putData.getResult();
+                            if(result.contains("failed")){
+                                Toast.makeText(SignupActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                String[] category = result.split(":::");
+                                ArrayAdapter<CharSequence> aa = new ArrayAdapter<>(SignupActivity.this, R.layout.spinner_item, category);
+                                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerHospital.setAdapter(aa);
+                            }
+                            //End ProgressBar (Set visibility to GONE)
+                        }
+                    }
+                    //End Write and Read data with URL
+                }
+            });
+        }
+
+
+        // Get Patients
+        if(profile_id.equals("2")){
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    String[] field = new String[1];
+                    field[0] = "user_type";
+                    String[] data = new String[1];
+                    data[0] = "3";
+                    PutData putData = new PutData(getResources().getString(R.string.website_address) + "get_patients.php", "POST", field, data);
+                    if (putData.startPut()) {
+                        if (putData.onComplete()) {
+                            String result = putData.getResult();
+                            if(result.contains("failed")){
+                                Toast.makeText(SignupActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                String[] category = result.split(":::");
+                                ArrayAdapter<CharSequence> aa = new ArrayAdapter<>(SignupActivity.this, R.layout.spinner_item, category);
+                                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerPatient.setAdapter(aa);
+                            }
+                            //End ProgressBar (Set visibility to GONE)
+                        }
+                    }
+                    //End Write and Read data with URL
+                }
+            });
+        }
+
 
     }
 

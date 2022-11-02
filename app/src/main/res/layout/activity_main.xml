@@ -30,7 +30,7 @@
                 android:layout_weight="10"
                 android:padding="30dp"
                 android:gravity="center"
-                android:src="@drawable/icon_logo"/>
+                android:src="@drawable/icon_app_logo"/>
 
             <!-- JUST TO SHOW THE LOADING PROGRESS -->
             <ProgressBar

@@ -2,7 +2,9 @@ package com.psgtech.cholestrol;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -24,7 +26,7 @@ public class ViewDetailsActivity extends AppCompatActivity {
     TextView tvName, tvPhone, tvEmail, tvAge, tvGender, tvAddress;
     TextView tvOPNumber, tvIPNumber, tvRace, tvHeight, tvWeight, tvBmi, tvHistory, tvProfession;
     ProgressBar progressBar;
-    Button buttonGenerateReportAll, buttonGenerateReportMonth, buttonGenerateReportYear;
+    Button buttonGenerateReportAll, buttonGenerateReportMonth, buttonGenerateReportYear, buttonGiveSuggestion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +62,30 @@ public class ViewDetailsActivity extends AppCompatActivity {
         buttonGenerateReportAll = findViewById(R.id.button_generate_report_all);
         buttonGenerateReportMonth = findViewById(R.id.button_generate_report_month);
         buttonGenerateReportYear = findViewById(R.id.button_generate_report_year);
+        buttonGiveSuggestion = findViewById(R.id.button_give_suggestion);
 
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+        if(sp.getString("from_user","0").equals("1")){
+            buttonGiveSuggestion.setVisibility(View.VISIBLE);
+        }
 
         if(userType.equals("3")){
             buttonGenerateReportAll.setVisibility(View.VISIBLE);
             buttonGenerateReportMonth.setVisibility(View.VISIBLE);
             buttonGenerateReportYear.setVisibility(View.VISIBLE);
         }
+
+        buttonGiveSuggestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ViewDetailsActivity.this, DoctorResponseActivity.class);
+                assert i != null;
+                i.putExtra("user_id", userId);
+                i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
         buttonGenerateReportAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

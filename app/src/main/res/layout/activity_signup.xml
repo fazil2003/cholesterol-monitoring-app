@@ -123,6 +123,56 @@
                 android:layout_marginTop="15dp"
                 android:padding="0dp" />
 
+            <Spinner
+                android:id="@+id/spinner_hospital"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="0dp" />
+
+            <Spinner
+                android:id="@+id/spinner_doctor"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="0dp" />
+
+            <Spinner
+                android:id="@+id/spinner_patient"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="0dp" />
+
+            <EditText
+                android:id="@+id/edittext_doctor_id"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Doctor ID"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_hospital"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Hospital"
+                android:inputType="text"
+                android:maxLength="500"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
             <EditText
                 android:id="@+id/edittext_opnumber"
                 android:layout_marginTop="15dp"
