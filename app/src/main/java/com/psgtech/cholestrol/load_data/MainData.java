@@ -3,6 +3,7 @@ package com.psgtech.cholestrol.load_data;
 public class MainData {
     private String id;
     private String type;
+    private String realname;
 
     public String getType() {
         return type;
@@ -15,6 +16,15 @@ public class MainData {
     private String name;
     private String email;
     private String phone;
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
     private String date;
 
     public String getId() {

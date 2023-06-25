@@ -441,6 +441,17 @@
                     android:text="Yearly Report"/>
 
                 <Button
+                    android:id="@+id/button_patient_query"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    android:background="@drawable/button_ripple_effect"
+                    app:backgroundTint="@null"
+                    android:textColor="@color/white"
+                    android:text="Patient Query"/>
+
+                <Button
                     android:id="@+id/button_give_suggestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -450,6 +461,17 @@
                     app:backgroundTint="@null"
                     android:textColor="@color/white"
                     android:text="Give Suggestion"/>
+
+                <Button
+                    android:id="@+id/button_view_messages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone"
+                    android:background="@drawable/button_ripple_effect"
+                    app:backgroundTint="@null"
+                    android:textColor="@color/white"
+                    android:text="View Suggestions"/>
 
 
             </LinearLayout>

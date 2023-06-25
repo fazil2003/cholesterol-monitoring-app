@@ -44,6 +44,8 @@ import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -198,7 +200,13 @@ public class ReportActivity extends AppCompatActivity {
 
                             String[] arr = result.split(":::");
                             htmlCode = new StringBuilder("<p class='d_name'>" + arr[1] + "</p>");
-                            htmlCode.append("<p class='d_age'>" + arr[4] + "</p>");
+
+                            // Get Age from Date
+                            LocalDate dob = LocalDate.parse(arr[4]);
+                            LocalDate curDate = LocalDate.now();
+                            Period period = Period.between(dob, curDate);
+
+                            htmlCode.append("<p class='d_age'>" + String.valueOf(period.getYears()) + "</p>");
                             htmlCode.append("<p class='d_gender'>" + arr[5] + "</p>");
                             htmlCode.append("<p class='d_doctor'>" + arr[15] + "</p>");
                             htmlCode.append("<p class='d_message_date'>" + arr[16] + "</p>");
@@ -224,14 +232,20 @@ public class ReportActivity extends AppCompatActivity {
 
                                 diffLevel = Integer.parseInt(arr[i+1]) - prevLevel;
                                 prevLevel = Integer.parseInt(arr[i+1]);
-                                if(Integer.parseInt(arr[i+1]) >= 240){
+                                if(Integer.parseInt(arr[i+1]) >= 500){
                                     tableCode.append("<td class='color-red'>" + arr[i+1] + "</td><td>" + diffLevel + "</td></tr>");
                                 }
-                                else if(Integer.parseInt(arr[i+1]) >= 200){
+                                else if(Integer.parseInt(arr[i+1]) >= 240){
                                     tableCode.append("<td class='color-orange'>" + arr[i+1] + "</td><td>" + diffLevel + "</td></tr>");
                                 }
-                                else{
+                                else if(Integer.parseInt(arr[i+1]) >= 200){
+                                    tableCode.append("<td class='color-blue'>" + arr[i+1] + "</td><td>" + diffLevel + "</td></tr>");
+                                }
+                                else if(Integer.parseInt(arr[i+1]) >= 70){
                                     tableCode.append("<td class='color-green'>" + arr[i+1] + "</td><td>" + diffLevel + "</td></tr>");
+                                }
+                                else{
+                                    tableCode.append("<td class='color-red'>" + arr[i+1] + "</td><td>" + diffLevel + "</td></tr>");
                                 }
                                 // tableCode.append("<td>" + arr[i+1] + "</td></tr>");
                             }
@@ -242,6 +256,11 @@ public class ReportActivity extends AppCompatActivity {
                             htmlCode.append(chartCodeY);
                             htmlCode.append(mLine);
                             htmlCode.append(tableCode);
+                            htmlCode.append("<br><br><span style='color:tomato'><b>Red</b></span><span> - Abnormal </span>");
+                            htmlCode.append("<br><span style='color:orange'><b>Orange</b></span><span> - High </span>");
+                            htmlCode.append("<br><span style='color:dodgerblue'><b>Blue</b></span><span> - Borderline </span>");
+                            htmlCode.append("<br><span style='color:seagreen'><b>Green</b></span><span> - Normal </span>");
+
 
                             webView.loadData(htmlCode.toString(), "text/html", null);
                         }

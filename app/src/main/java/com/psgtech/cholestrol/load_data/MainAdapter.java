@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.psgtech.cholestrol.R;
 import com.psgtech.cholestrol.ViewDetailsActivity;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
@@ -48,7 +50,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         // Set ID on text view
         holder.textViewId.setText(data.getId());
         holder.textViewType.setText(data.getType());
-        holder.textViewName.setText(data.getName());
+        holder.textViewName.setText(data.getRealname());
         holder.textViewEmail.setText(data.getEmail());
         holder.textViewPhone.setText("+91 " + data.getPhone());
         holder.textViewDate.setText(data.getDate());

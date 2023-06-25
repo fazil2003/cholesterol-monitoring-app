@@ -19,6 +19,9 @@ import android.widget.Toast;
 import com.psgtech.cholestrol.report.ReportActivity;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 public class ViewDetailsActivity extends AppCompatActivity {
 
     LinearLayout layoutForPatient;
@@ -26,7 +29,7 @@ public class ViewDetailsActivity extends AppCompatActivity {
     TextView tvName, tvPhone, tvEmail, tvAge, tvGender, tvAddress;
     TextView tvOPNumber, tvIPNumber, tvRace, tvHeight, tvWeight, tvBmi, tvHistory, tvProfession;
     ProgressBar progressBar;
-    Button buttonGenerateReportAll, buttonGenerateReportMonth, buttonGenerateReportYear, buttonGiveSuggestion;
+    Button buttonGenerateReportAll, buttonGenerateReportMonth, buttonGenerateReportYear, buttonPatientQuery, buttonGiveSuggestion, buttonViewMessages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +65,17 @@ public class ViewDetailsActivity extends AppCompatActivity {
         buttonGenerateReportAll = findViewById(R.id.button_generate_report_all);
         buttonGenerateReportMonth = findViewById(R.id.button_generate_report_month);
         buttonGenerateReportYear = findViewById(R.id.button_generate_report_year);
+        buttonPatientQuery = findViewById(R.id.button_patient_query);
         buttonGiveSuggestion = findViewById(R.id.button_give_suggestion);
+        buttonViewMessages = findViewById(R.id.button_view_messages);
 
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         if(sp.getString("from_user","0").equals("1")){
+            buttonPatientQuery.setVisibility(View.VISIBLE);
             buttonGiveSuggestion.setVisibility(View.VISIBLE);
+        }
+        if(sp.getString("from_user","0").equals("2")){
+           buttonViewMessages.setVisibility(View.VISIBLE);
         }
 
         if(userType.equals("3")){
@@ -75,10 +84,32 @@ public class ViewDetailsActivity extends AppCompatActivity {
             buttonGenerateReportYear.setVisibility(View.VISIBLE);
         }
 
-        buttonGiveSuggestion.setOnClickListener(new View.OnClickListener() {
+        buttonViewMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ViewDetailsActivity.this, CaretakerViewSuggestionsActivity.class);
+                assert i != null;
+                i.putExtra("user_id", userId);
+                i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
+        buttonPatientQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ViewDetailsActivity.this, DoctorResponseActivity.class);
+                assert i != null;
+                i.putExtra("user_id", userId);
+                i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
+        });
+
+        buttonGiveSuggestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ViewDetailsActivity.this, DoctorSuggestionActivity.class);
                 assert i != null;
                 i.putExtra("user_id", userId);
                 i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -153,7 +184,13 @@ public class ViewDetailsActivity extends AppCompatActivity {
                             tvName.setText(arr[1]);
                             tvEmail.setText(arr[2]);
                             tvPhone.setText(arr[3]);
-                            tvAge.setText(arr[4]);
+
+                            // Get Age from Date
+                            LocalDate dob = LocalDate.parse(arr[4]);
+                            LocalDate curDate = LocalDate.now();
+                            Period period = Period.between(dob, curDate);
+                            tvAge.setText(String.valueOf(period.getYears()));
+
                             tvGender.setText(arr[5]);
                             tvAddress.setText(arr[6]);
 

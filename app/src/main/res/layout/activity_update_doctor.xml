@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- HEADING -->
+            <TextView
+                android:id="@+id/textview_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:textSize="32sp"
+                android:text="Update Details" />
+
+
+            <Spinner
+                android:id="@+id/spinner_hospital"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="0dp" />
+
+            <Spinner
+                android:id="@+id/spinner_doctor"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:padding="0dp" />
+
+            <EditText
+                android:id="@+id/edittext_caretaker_1"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Caretaker 1 (Required)"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_caretaker_2"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Caretaker 2"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_caretaker_3"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Caretaker 3"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_caretaker_4"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Caretaker 4"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_caretaker_5"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Caretaker 5"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/white" />
+
+            <Button
+                android:id="@+id/button_signup"
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/white"
+                android:background="@drawable/button_ripple_effect"
+                android:textAllCaps="false"
+                android:textColor="@color/dodgerblue"
+                android:textStyle="bold"
+                android:text="Update"
+                android:textSize="16sp"
+                android:padding="7.5dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

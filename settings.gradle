@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Cholestrol Monitoring"
+rootProject.name = "Cholesterol Monitoring"
 include ':app'
 include ':libraries:advancedHttpUrlConnection'

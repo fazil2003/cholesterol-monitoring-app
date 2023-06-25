@@ -1,16 +1,20 @@
-package com.psgtech.cholestrol.doctor_view;
+package com.psgtech.cholestrol;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,9 +25,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.psgtech.cholestrol.R;
-import com.psgtech.cholestrol.load_data.MainAdapter;
-import com.psgtech.cholestrol.load_data.MainData;
-import com.psgtech.cholestrol.load_data.MainInterface;
+import com.psgtech.cholestrol.load_messages.MainAdapter;
+import com.psgtech.cholestrol.load_messages.MainData;
+import com.psgtech.cholestrol.load_messages.MainInterface;
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +42,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class OpenPatientFragment extends Fragment {
+public class CaretakerViewFragment extends Fragment {
 
     //Initialize Variable
     NestedScrollView nestedScrollView;
@@ -54,32 +59,75 @@ public class OpenPatientFragment extends Fragment {
 
     int start = 0, limit = 10;
     String cookie_id = "1";
-    int current_user = 1, to_user = 3;
 
     TextView textViewMaximumProjects, textViewNoInternetConnection;
-    String maximumProjects;
-    Button buttonAddProject;
 
-    TextView textViewTitle;
+    EditText editTextMessage;
+    Button buttonSendMessage;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @org.jetbrains.annotations.NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_open_patient, container, false);
+        View view = inflater.inflate(R.layout.fragment_doctor_suggestion, container, false);
 
-        cookie_id = requireActivity().getIntent().getStringExtra("cookie_id");
+        cookie_id = requireActivity().getIntent().getStringExtra("user_id");
 
-        textViewTitle = view.findViewById(R.id.textview_title);
-        textViewTitle.setText("Patient Profiles:");
-
+        textViewMaximumProjects = view.findViewById(R.id.textview_maximum_projects);
+        textViewMaximumProjects.setTextSize(24);
         textViewNoInternetConnection = view.findViewById(R.id.textview_no_internet_connection);
 
         //Assign variable
         nestedScrollView = view.findViewById(R.id.scroll_view);
         recyclerView = view.findViewById(R.id.recycler_view);
         progressBar = view.findViewById(R.id.progress_bar);
+
+        editTextMessage = view.findViewById(R.id.edittext_message);
+        editTextMessage.setVisibility(View.GONE);
+        buttonSendMessage = view.findViewById(R.id.button_send_message);
+        buttonSendMessage.setVisibility(View.GONE);
+        buttonSendMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = editTextMessage.getText().toString();
+
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Starting Write and Read data with URL
+                        //Creating array for parameters
+                        String[] field = new String[2];
+                        field[0] = "cookie_id";
+                        field[1] = "message";
+                        //Creating array for data
+                        String[] data = new String[2];
+                        data[0] = cookie_id;
+                        data[1] = message;
+
+                        PutData putData = new PutData(getResources().getString(R.string.website_address) + "add_query.php", "POST", field, data);
+                        if (putData.startPut()) {
+                            if (putData.onComplete()) {
+                                progressBar.setVisibility(View.GONE);
+                                String result = putData.getResult();
+
+                                if(result.contains("failed")){
+                                    Toast.makeText(requireActivity(), "Failed.", Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(requireActivity(), "Success.", Toast.LENGTH_SHORT).show();
+
+                                }
+                                //End ProgressBar (Set visibility to GONE)
+                            }
+                        }
+                        //End Write and Read data with URL
+                    }
+                });
+
+            }
+        });
 
 //        Bundle arguments = getArguments();
 //        assert arguments != null;
@@ -91,7 +139,7 @@ public class OpenPatientFragment extends Fragment {
 //        }
 
         // Initialize Adapter
-        adapter = new MainAdapter(OpenPatientFragment.this, dataArrayList);
+        adapter = new MainAdapter(CaretakerViewFragment.this, dataArrayList);
 
         // Set Layout Manager
         recyclerView.setLayoutManager(new LinearLayoutManager(requireActivity().getApplicationContext()));
@@ -101,7 +149,7 @@ public class OpenPatientFragment extends Fragment {
 
         if(isNetworkConnected()){
             // Create get data method
-            getData(cookie_id, current_user, to_user, start, limit);
+            getData(cookie_id, start, limit);
         }
         else{
             progressBar.setVisibility(View.GONE);
@@ -119,7 +167,7 @@ public class OpenPatientFragment extends Fragment {
     }
 
 
-    private void getData(String cookie_id, int current_user, int to_user, int start, int limit) {
+    private void getData(String cookie_id, int start, int limit) {
 
         String website_address = getResources().getString(R.string.website_address);
 
@@ -133,7 +181,7 @@ public class OpenPatientFragment extends Fragment {
         MainInterface mainInterface = retrofit.create(MainInterface.class);
 
         // Initialize Call
-        Call<String> call = mainInterface.STRING_CALL(cookie_id, current_user, to_user, start, limit);
+        Call<String> call = mainInterface.STRING_CALL(cookie_id, start, limit);
 
         call.enqueue(new Callback<String>() {
             @Override
@@ -168,9 +216,11 @@ public class OpenPatientFragment extends Fragment {
         if(jsonArray.length() == 0){
             // Show the number of projects.
             textViewNoInternetConnection.setVisibility(View.VISIBLE);
-            textViewNoInternetConnection.setText("No Profiles Found.");
+            textViewNoInternetConnection.setText("No Messages Found.");
             // Show the number of projects
         }
+
+        textViewMaximumProjects.setText("\uD83D\uDCC1 Messages");
 
         // Use For Loop
         for(int i=0; i<jsonArray.length(); i++){
@@ -182,13 +232,12 @@ public class OpenPatientFragment extends Fragment {
                 MainData data = new MainData();
 
                 // Set ID of Question
-                data.setId(object.getString("id"));
-                data.setType(object.getString("type"));
-                data.setName(object.getString("name"));
-                data.setRealname(object.getString("realname"));
-                data.setEmail(object.getString("email"));
-                data.setPhone(object.getString("phone"));
-                data.setDate(object.getString("date"));
+                data.setMessageID(object.getString("id"));
+                data.setMessageDate(object.getString("date"));
+                data.setMessageDoctorID(object.getString("doctor_id"));
+                data.setMessagePatientID(object.getString("patient_id"));
+                data.setMessageQuery(object.getString("query"));
+                data.setMessageResponse(object.getString("response"));
 
                 // Add data in array list
                 dataArrayList.add(data);
@@ -198,7 +247,7 @@ public class OpenPatientFragment extends Fragment {
 
 
             // Initialize Adapter
-            adapter = new MainAdapter(OpenPatientFragment.this, dataArrayList);
+            adapter = new MainAdapter(CaretakerViewFragment.this, dataArrayList);
 
             // Set adapter
             recyclerView.setAdapter(adapter);

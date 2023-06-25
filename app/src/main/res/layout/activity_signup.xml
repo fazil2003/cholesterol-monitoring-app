@@ -89,18 +89,45 @@
                 android:textSize="20sp"
                 android:padding="15dp"/>
 
-            <EditText
-                android:id="@+id/edittext_age"
-                android:layout_marginTop="15dp"
+            <TextView
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/edittext_focused_effect"
-                android:textCursorDrawable="@drawable/custom_cursor"
-                android:hint="Age"
-                android:inputType="text|number"
-                android:maxLength="50"
-                android:textSize="20sp"
-                android:padding="15dp"/>
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:text="Date of Birth: " />
+
+            <LinearLayout
+                android:layout_marginTop="2.5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinner_year"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_margin="2.5dp"
+                    android:padding="0dp" />
+
+                <Spinner
+                    android:id="@+id/spinner_month"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_margin="2.5dp"
+                    android:padding="0dp" />
+
+                <Spinner
+                    android:id="@+id/spinner_day"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="2.5dp"
+                    android:padding="0dp" />
+
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/edittext_address"
@@ -139,13 +166,71 @@
                 android:layout_marginTop="15dp"
                 android:padding="0dp" />
 
-            <Spinner
-                android:id="@+id/spinner_patient"
-                android:visibility="gone"
+            <EditText
+                android:id="@+id/edittext_caretaker_1"
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Caretaker 1 (Required)"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_caretaker_2"
                 android:layout_marginTop="15dp"
-                android:padding="0dp" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Caretaker 2"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_caretaker_3"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Caretaker 3"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_caretaker_4"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Caretaker 4"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
+            <EditText
+                android:id="@+id/edittext_caretaker_5"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_focused_effect"
+                android:textCursorDrawable="@drawable/custom_cursor"
+                android:hint="Caretaker 5"
+                android:inputType="text"
+                android:maxLength="50"
+                android:textSize="20sp"
+                android:padding="15dp"/>
+
 
             <EditText
                 android:id="@+id/edittext_doctor_id"

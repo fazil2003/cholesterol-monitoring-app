@@ -58,6 +58,8 @@ public class OpenPatientFragment extends Fragment {
     String maximumProjects;
     Button buttonAddProject;
 
+    TextView textViewTitle;
+
     @SuppressLint("SetJavaScriptEnabled")
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -67,8 +69,9 @@ public class OpenPatientFragment extends Fragment {
 
         cookie_id = requireActivity().getIntent().getStringExtra("cookie_id");
 
-        textViewMaximumProjects = view.findViewById(R.id.textview_maximum_projects);
-        textViewMaximumProjects.setTextSize(24);
+        textViewTitle = view.findViewById(R.id.textview_title);
+        textViewTitle.setText("Patient Profiles:");
+
         textViewNoInternetConnection = view.findViewById(R.id.textview_no_internet_connection);
 
         //Assign variable
@@ -167,8 +170,6 @@ public class OpenPatientFragment extends Fragment {
             // Show the number of projects
         }
 
-        textViewMaximumProjects.setText("\uD83D\uDCC1 Profiles");
-
         // Use For Loop
         for(int i=0; i<jsonArray.length(); i++){
             try {
@@ -182,6 +183,7 @@ public class OpenPatientFragment extends Fragment {
                 data.setId(object.getString("id"));
                 data.setType(object.getString("type"));
                 data.setName(object.getString("name"));
+                data.setRealname(object.getString("realname"));
                 data.setEmail(object.getString("email"));
                 data.setPhone(object.getString("phone"));
                 data.setDate(object.getString("date"));

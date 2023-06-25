@@ -23,12 +23,12 @@
 
             <!-- HEADING -->
             <TextView
-                android:id="@+id/textview_maximum_projects"
+                android:id="@+id/textview_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="2"
-                android:text="📁 Profiles:"
+                android:text="Profiles:"
                 android:textColor="@color/white"
                 android:textSize="28sp"
                 android:textStyle="bold" />
